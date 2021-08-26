@@ -22,13 +22,20 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Set up Git repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
       - name: Github Action for LaTeX
         uses: xu-cheng/latex-action@v2
         with: 
           root_file: lease.tex
+      - uses: tawalaya/latex-diff-action@v1
+        with:
+          root_file: lease.tex
       - uses: actions/upload-artifact@v2
         with:
           name: PDF
-          path: lease.pdf
+          path: |
+            lease.pdf
+            diff.pdf
         
 
