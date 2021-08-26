@@ -27,7 +27,12 @@ jobs:
       - uses: tawalaya/latex-diff-action@v1
         with:
           root_file: lease.tex
-          compile_diff: ${{github.event_name == 'pull_request'}}
+        if: github.event_name != 'pull_request'
+      - uses: tawalaya/latex-dif-action@v1
+        with:
+          root_file: lease.text
+          compile_diff: true
+        if: github.event_name == 'pull_request'
       - uses: actions/upload-artifact@v2
         with:
           name: PDF
